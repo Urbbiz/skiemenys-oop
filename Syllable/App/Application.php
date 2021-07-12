@@ -2,7 +2,8 @@
 namespace Syllable\App;
 use Syllable\App;
 use Syllable\Service\SyllableAlgorithm;
-use Syllable\IO\ExtractionValues;
+use Syllable\Service\SyllableResult;
+use Syllable\IO\PatternExtractor;
 use Syllable\IO\Input\UserInput;
 
 
@@ -16,12 +17,18 @@ public function runApp (){
 
     $startTime = microtime(true); // laiko pradzia
 
-    $extractionValues = new ExtractionValues();
-    $values = $extractionValues->getValues(); // issitraukiam txt failo turini.
+    $patternExtractor = new PatternExtractor();
+    $patternsResult = $patternExtractor->getPatterns(DIR."data/inputfile.txt"); // issitraukiam txt failo turini.
 
+    
+     
     $SyllableAlgorithm = new SyllableAlgorithm();
-    $syllableWord=$SyllableAlgorithm->syllableMaker($givenWord, $values);
-    echo   $syllableWord . "\n";   // parodo isskiemenuota zodi.
+    $syllableResult=$SyllableAlgorithm->syllable($givenWord, $patternsResult);
+   
+    echo  "Syllable result: ". $syllableResult->dashResult . "\n";   // parodo isskiemenuota zodi.
+
+    // var_dump($syllableResult);
+    
 
     $endTime = microtime(true); //laiko pabaiga
     $executionTime = round($endTime - $startTime, 4); // programos veikimo laikas suapvalintas iki 4 skaiciu po kablelio
