@@ -16,17 +16,27 @@ define('DIR', __DIR__.'/');
 //}
 
 //
-require DIR . 'Syllable/App/Application.php';
-require DIR . 'Syllable/IO/PatternExtractorInterface.php';
-require DIR . 'Syllable/IO/PatternResult.php';
-require DIR . 'Syllable/IO/PatternExtractor.php';
-require DIR . 'Syllable/IO/Input/UserInput.php';
-require DIR . 'Syllable/IO/Pattern.php';
-require DIR . 'Syllable/Service/SyllableAlgorithmInterface.php';
-require DIR . 'Syllable/Service/SyllableAlgorithm.php';
-require DIR . 'Syllable/Service/SyllableResult.php';
+// require DIR . 'Syllable/App/Application.php';
+// require DIR . 'Syllable/IO/PatternExtractorInterface.php';
+// require DIR . 'Syllable/IO/PatternResult.php';
+// require DIR . 'Syllable/IO/PatternExtractor.php';
+// require DIR . 'Syllable/IO/Input/UserInput.php';
+// require DIR . 'Syllable/IO/Pattern.php';
+// require DIR . 'Syllable/Service/SyllableAlgorithmInterface.php';
+// require DIR . 'Syllable/Service/SyllableAlgorithm.php';
+// require DIR . 'Syllable/Service/SyllableResult.php';
 
-
+spl_autoload_register(
+    function ($class) {
+        $rootDir = __DIR__;
+        $sourceDir = '//';
+        
+        $file = $rootDir.$sourceDir.str_replace('\\', '/', $class).'.php';
+        if (file_exists($file)) {
+            require_once $file;
+        }
+    }
+);
 //spl_autoload_register(function($className){
 //
 //    $prefix ='old-Syllable';   //namespace
